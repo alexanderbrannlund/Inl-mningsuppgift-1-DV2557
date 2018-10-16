@@ -49,62 +49,24 @@ public class MyAgent implements Agent
             return;
         }
         
-        //Test the environment
-        if (w.hasBreeze(cX, cY))
+        if(!w.hasBreeze(cX, cY) && !w.hasStench(cX, cY))
         {
-            System.out.println("I am in a Breeze");
-        }
-        if (w.hasStench(cX, cY))
-        {
-            System.out.println("I am in a Stench");
-        }
-        if (w.hasPit(cX, cY))
-        {
-            System.out.println("I am in a Pit");
-        }
-        if (w.getDirection() == World.DIR_RIGHT)
-        {
-            System.out.println("I am facing Right");
-        }
-        if (w.getDirection() == World.DIR_LEFT)
-        {
-            System.out.println("I am facing Left");
-        }
-        if (w.getDirection() == World.DIR_UP)
-        {
-            System.out.println("I am facing Up");
-        }
-        if (w.getDirection() == World.DIR_DOWN)
-        {
-            System.out.println("I am facing Down");
-        }
-        
-        //decide next move
-        rnd = decideRandomMove();
-        if (rnd==0)
-        {
-            w.doAction(World.A_TURN_LEFT);
             w.doAction(World.A_MOVE);
         }
         
-        if (rnd==1)
+        else if(w.hasBreeze(cX, cY))
         {
-            w.doAction(World.A_MOVE);
+            //kolla riktning
+            //kollar uppåt
+            if(w.isValidPosition(cX, cY+1))
+            {
+                if(w.isVisited(cX, cY+1))
+                {
+                    if(w.hasBreeze(cX, cY+1));
+                }
+            }
         }
-                
-        if (rnd==2)
-        {
-            w.doAction(World.A_TURN_LEFT);
-            w.doAction(World.A_TURN_LEFT);
-            w.doAction(World.A_MOVE);
-        }
-                        
-        if (rnd==3)
-        {
-            w.doAction(World.A_TURN_RIGHT);
-            w.doAction(World.A_MOVE);
-        }
-                
+     
     }    
     
      /**
