@@ -28,7 +28,7 @@ public class MyAgent implements Agent {
         int cX = w.getPlayerX();
         int cY = w.getPlayerY();
 
-        int[][] myWorld = new int[37][37];
+        int[][] myWorld = new int[17][17];
         int countBreeze = 0;
         int countStench = 0;
         int countPit = 0;
@@ -166,7 +166,20 @@ public class MyAgent implements Agent {
             }
             else if(countBreeze==1 && countStench==1)
             {
-                w.doAction(World.A_MOVE);
+                if (w.getDirection() == 0) //dir_up
+                {
+                    moveFromBreeze(cX, cY, myWorld, 0, 1);
+                } else if (w.getDirection() == 1) //dir_right
+                {
+                    moveFromBreeze(cX, cY, myWorld, 1, 0);
+                } else if (w.getDirection() == 2) // dir_down
+                {
+                    moveFromBreeze(cX, cY, myWorld, 0, -1);
+                } else if (w.getDirection() == 3) //dir_left
+                {
+                    moveFromBreeze(cX, cY, myWorld, -1, 0);
+                }
+                //w.doAction(World.A_MOVE);
             }
             else if (countBreeze > 1) {
                 if (w.getDirection() == 0) //dir_up
@@ -199,12 +212,23 @@ public class MyAgent implements Agent {
     /**
      * Genertes a random instruction for the Agent.
      */
-    public int decideRandomMove() {
-        return (int) (Math.random() * 4);
-    }
+//    public int decideRandomMove() {
+//        return (int) (Math.random() * 4);
+//    }
 
     public void moveFromBreeze(int cX, int cY, int[][] myWorld, int xDir, int yDir) {
-        if (w.isValidPosition(cX + xDir, cY + yDir) && (!w.hasPit(cX + xDir, cY + yDir))) {
+        if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
+                    {
+                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
+                                w.doAction(World.A_TURN_LEFT);
+                                w.doAction(World.A_MOVE);
+                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
+                                w.doAction(World.A_TURN_RIGHT);
+                                w.doAction(World.A_MOVE);
+
+                            } 
+                    }
+        else if (w.isValidPosition(cX + xDir, cY + yDir) && (!w.hasPit(cX + xDir, cY + yDir))) {
             if (w.isVisited(cX + xDir, cY + yDir)) {
                 if (myWorld[cX + 1][cY] != 3);
                 {
@@ -226,7 +250,7 @@ public class MyAgent implements Agent {
                 }
 
                 if (nrOfBreezes > 1) {
-
+                    
                     if ((w.isValidPosition(cX + 1, cY + 1) && w.hasBreeze(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasBreeze(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasBreeze(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasBreeze(cX - 1, cY - 1))) {
                         if (w.hasPit(cX + xDir, cY + yDir)) {
                             if (w.isValidPosition(cX + xDir, cY + yDir) && (!w.hasPit(cX + xDir, cY + yDir))) {
@@ -253,12 +277,15 @@ public class MyAgent implements Agent {
                             w.doAction(World.A_MOVE);
                         }
 
-                    } else {
+                    } 
+                    else {
                         w.doAction(World.A_MOVE);
                     }
                 } else {
-                    w.doAction(World.A_MOVE);
-
+                    
+                    
+                        w.doAction(World.A_MOVE);
+                    
                 }
 
             }
