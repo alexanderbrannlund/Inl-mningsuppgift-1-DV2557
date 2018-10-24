@@ -22,19 +22,19 @@ public class MyAgent implements Agent {
 
     /**
      * Asks your solver agent to execute an action.
+     * Aiming for grade E
      */
     public void doAction() {
         //Location of the player
         int cX = w.getPlayerX();
         int cY = w.getPlayerY();
 
-        int[][] myWorld = new int[17][17];
+        int[][] myWorld = new int[17][17]; //Make a matrix
         int countBreeze = 0;
         int countStench = 0;
-        int countPit = 0;
         int countKnownSqr = 0;
 
-        for (int i = 1; i < 5; i++) {
+        for (int i = 1; i < 5; i++) {           //Descovering the world
             for (int k = 1; k < 5; k++) {
                 if (w.isValidPosition(i, k)) {
                     if (w.isVisited(i, k)) {
@@ -53,7 +53,6 @@ public class MyAgent implements Agent {
                             countKnownSqr++;
                         } else if (w.hasPit(i, k)) {
                             myWorld[i][k] = 3;
-                            countPit++;
                             countKnownSqr++;
                         } else if (w.hasWumpus(i, k)) {
                             myWorld[i][k] = 4;
@@ -69,7 +68,7 @@ public class MyAgent implements Agent {
             }
         }
 
-        if (countKnownSqr == 1 && w.hasStench(cX, cY) && w.hasBreeze(cX, cY)) {
+        if (countKnownSqr == 1 && w.hasStench(cX, cY) && w.hasBreeze(cX, cY)) {     //if there is a breeze and stench in the original squere just move
             w.doAction(World.A_MOVE);
         } //Basic action:
         //Grab Gold if we can.
@@ -78,7 +77,7 @@ public class MyAgent implements Agent {
             return;
         } //Basic action:
         //We are in a pit. Climb up.
-        else if (w.isInPit()) {
+        else if (w.isInPit()) {             //Climb and walk from a pit
             w.doAction(World.A_CLIMB);
             if (!w.hasStench(cX, cY)) {
 
@@ -105,7 +104,7 @@ public class MyAgent implements Agent {
                 }
             }
             return;
-        } else if (myWorld[cX][cY] == 0) {
+        } else if (myWorld[cX][cY] == 0) { //if the square is safe, move to an unknown sqr
 
             moveToUnknown(cX, cY);
 
