@@ -185,6 +185,10 @@ public class MyAgent implements Agent {
                 }
                 //w.doAction(World.A_MOVE);
             }
+            else if(countBreeze==2 && countKnownSqr==3)
+            {
+                w.doAction(World.A_MOVE);
+            }
             else if (countBreeze > 1) {
                 if (w.getDirection() == 0) //dir_up
                 {
@@ -443,148 +447,33 @@ public class MyAgent implements Agent {
                  }
         
              }
+            
              
          }
          
          else
          {
-             w.doAction(World.A_MOVE);
+             if(w.isValidPosition(cX-xDir, cY-yDir)&& myWorld[cX-xDir][cY-yDir]==0)
+            {
+                moveBackToSafe(cX, cY, myWorld,xDir, yDir);
+            }
+             else
+             {
+                 w.doAction(World.A_MOVE);
+             }
+             
          }
          
         }
         
         
-        
         else if(w.isValidPosition(cX-xDir, cY-yDir)&& myWorld[cX-xDir][cY-yDir]==0)
         {
-            if(xDir==0 && yDir==1)
-            {
-                if((w.isValidPosition(cX+1, cY-1)&& w.isUnknown(cX+1, cY-1))||(w.isValidPosition(cX-1, cY-1)&& w.isUnknown(cX-1, cY-1)))
-                {
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_MOVE);
-                }
-                else
-                {
-                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
-                    {
-                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
-                                w.doAction(World.A_TURN_LEFT);
-                                w.doAction(World.A_MOVE);
-                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
-                                w.doAction(World.A_TURN_RIGHT);
-                                w.doAction(World.A_MOVE);
-
-                            } 
-                    }
-                   else
-                   {
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_MOVE);
-                   }
-                }
-                    
-            }
-            else  if(xDir==0 && yDir==-1)
-            {
-                if((w.isValidPosition(cX+1, cY+1)&& w.isUnknown(cX+1, cY+1))||(w.isValidPosition(cX-1, cY+1)&& w.isUnknown(cX-1, cY+1)))
-                {
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_MOVE);
-                }
-                else
-                {
-                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
-                    {
-                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
-                                w.doAction(World.A_TURN_LEFT);
-                                w.doAction(World.A_MOVE);
-                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
-                                w.doAction(World.A_TURN_RIGHT);
-                                w.doAction(World.A_MOVE);
-
-                            } 
-                    }
-                   else
-                   {
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_MOVE);
-                   }
-                }
-                    
-            }
-            else  if(xDir==-1 && yDir==0)
-            {
-                if((w.isValidPosition(cX+1, cY+1)&& w.isUnknown(cX+1, cY+1))||(w.isValidPosition(cX+1, cY-1)&& w.isUnknown(cX+1, cY-1)))
-                {
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_MOVE);
-                }
-                else
-                {
-                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
-                    {
-                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
-                                w.doAction(World.A_TURN_LEFT);
-                                w.doAction(World.A_MOVE);
-                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
-                                w.doAction(World.A_TURN_RIGHT);
-                                w.doAction(World.A_MOVE);
-
-                            } 
-                    }
-                   else
-                   {
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_MOVE);
-                   }
-                }
-                    
-            }
-            else  if(xDir==1 && yDir==0)
-            {
-                if((w.isValidPosition(cX-1, cY+1)&& w.isUnknown(cX-1, cY+1))||(w.isValidPosition(cX-1, cY-1)&& w.isUnknown(cX-1, cY-1)))
-                {
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_MOVE);
-                }
-                else
-                {
-                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
-                    {
-                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
-                                w.doAction(World.A_TURN_LEFT);
-                                w.doAction(World.A_MOVE);
-                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
-                                w.doAction(World.A_TURN_RIGHT);
-                                w.doAction(World.A_MOVE);
-
-                            } 
-                    }
-                   else
-                   {
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_MOVE);
-                   }
-                }
-                    
-            }
-            
-            
+            moveBackToSafe(cX, cY, myWorld,xDir, yDir);
         }
         
         
-        
-        
-        
+
         else if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
                     {
                         if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
@@ -964,10 +853,10 @@ public class MyAgent implements Agent {
         {
             if (w.isValidPosition(cX, cY + 1) && w.isUnknown(cX, cY + 1)) {
                 w.doAction(World.A_MOVE);
-            } else if (w.isValidPosition(cX - 1, cY) && w.isUnknown(cX - 1, cY)) {
+            } else if (w.isValidPosition(cX -1, cY) && w.isUnknown(cX - 1, cY)) {
                 w.doAction(World.A_TURN_LEFT);
                 w.doAction(World.A_MOVE);
-            } else if (w.isValidPosition(cX + 1, cY) && w.isUnknown(cX + 1, cY)) {
+            } else if (w.isValidPosition(cX + 1, cY) && w.isUnknown(cX +1, cY)) {
                 w.doAction(World.A_TURN_RIGHT);
                 w.doAction(World.A_MOVE);
             } else if (w.isValidPosition(cX, cY - 1) && w.isUnknown(cX, cY - 1)) {
@@ -977,7 +866,7 @@ public class MyAgent implements Agent {
             } else {
                 if (w.isValidPosition(cX, cY + 1)) {
                     w.doAction(World.A_MOVE);
-                } else if (w.isValidPosition(cX - 1, cY)) {
+                } else if (w.isValidPosition(cX -1, cY)) {
                     w.doAction(World.A_TURN_LEFT);
                     w.doAction(World.A_MOVE);
                 } else if (w.isValidPosition(cX + 1, cY)) {
@@ -1006,11 +895,11 @@ public class MyAgent implements Agent {
             } else {
                 if (w.isValidPosition(cX + 1, cY)) {
                     w.doAction(World.A_MOVE);
-                } else if (w.isValidPosition(cX, cY + 1)) {
-                    w.doAction(World.A_TURN_LEFT);
-                    w.doAction(World.A_MOVE);
                 } else if (w.isValidPosition(cX, cY - 1)) {
                     w.doAction(World.A_TURN_RIGHT);
+                    w.doAction(World.A_MOVE);
+                } else if (w.isValidPosition(cX, cY + 1)) {
+                    w.doAction(World.A_TURN_LEFT);
                     w.doAction(World.A_MOVE);
                 } else if (w.isValidPosition(cX - 1, cY)) {
                     w.doAction(World.A_TURN_RIGHT);
@@ -1022,11 +911,11 @@ public class MyAgent implements Agent {
         {
             if (w.isValidPosition(cX, cY - 1) && w.isUnknown(cX, cY - 1)) {
                 w.doAction(World.A_MOVE);
-            } else if (w.isValidPosition(cX + 1, cY) && w.isUnknown(cX + 1, cY)) {
-                w.doAction(World.A_TURN_LEFT);
-                w.doAction(World.A_MOVE);
             } else if (w.isValidPosition(cX - 1, cY) && w.isUnknown(cX - 1, cY)) {
                 w.doAction(World.A_TURN_RIGHT);
+                w.doAction(World.A_MOVE);
+            } else if (w.isValidPosition(cX + 1, cY) && w.isUnknown(cX + 1, cY)) {
+                w.doAction(World.A_TURN_LEFT);
                 w.doAction(World.A_MOVE);
             } else if (w.isValidPosition(cX, cY + 1) && w.isUnknown(cX, cY + 1)) {
                 w.doAction(World.A_TURN_RIGHT);
@@ -1077,5 +966,155 @@ public class MyAgent implements Agent {
                 }
             }
         }
+    }
+    public void moveBackToSafe(int cX, int cY,int[][] myWorld, int xDir, int yDir)
+    {
+       
+        
+            if(xDir==0 && yDir==1)
+            {
+                if((w.isValidPosition(cX+1, cY-1)&& w.isUnknown(cX+1, cY-1))||(w.isValidPosition(cX-1, cY-1)&& w.isUnknown(cX-1, cY-1)))
+                {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                }
+                else
+                {
+                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
+                    {
+                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
+                                w.doAction(World.A_TURN_LEFT);
+                                w.doAction(World.A_MOVE);
+                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
+                                w.doAction(World.A_TURN_RIGHT);
+                                w.doAction(World.A_MOVE);
+
+                            } 
+                    }
+                   else
+                   {
+                   if(w.isValidPosition(cX, cY+1))
+                   {
+                       w.doAction(World.A_MOVE);
+                   }
+                   else if(w.isValidPosition(cX+1, cY))
+                   {
+                       w.doAction(World.A_TURN_RIGHT);
+                       w.doAction(World.A_MOVE);
+                   }
+                    else
+                   {
+                       w.doAction(World.A_TURN_LEFT);
+                       w.doAction(World.A_MOVE);
+                   }
+                    
+                   }
+                }
+                    
+            }
+            else  if(xDir==0 && yDir==-1)
+            {
+                if((w.isValidPosition(cX+1, cY+1)&& w.isUnknown(cX+1, cY+1))||(w.isValidPosition(cX-1, cY+1)&& w.isUnknown(cX-1, cY+1)))
+                {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                }
+                else
+                {
+                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
+                    {
+                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
+                                w.doAction(World.A_TURN_LEFT);
+                                w.doAction(World.A_MOVE);
+                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
+                                w.doAction(World.A_TURN_RIGHT);
+                                w.doAction(World.A_MOVE);
+
+                            } 
+                    }
+                   else
+                   {
+                    //w.doAction(World.A_TURN_LEFT);
+                    //w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                   }
+                }
+                    
+            }
+            else  if(xDir==-1 && yDir==0)
+            {
+                if((w.isValidPosition(cX+1, cY+1)&& w.isUnknown(cX+1, cY+1))||(w.isValidPosition(cX+1, cY-1)&& w.isUnknown(cX+1, cY-1)))
+                {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                }
+                else
+                {
+                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
+                    {
+                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
+                                w.doAction(World.A_TURN_LEFT);
+                                w.doAction(World.A_MOVE);
+                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
+                                w.doAction(World.A_TURN_RIGHT);
+                                w.doAction(World.A_MOVE);
+
+                            } 
+                    }
+                   else
+                   {
+                    //w.doAction(World.A_TURN_LEFT);
+                    //w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                   }
+                }
+                    
+            }
+            else  if(xDir==1 && yDir==0)
+            {
+                if((w.isValidPosition(cX-1, cY+1)&& w.isUnknown(cX-1, cY+1))||(w.isValidPosition(cX-1, cY-1)&& w.isUnknown(cX-1, cY-1)))
+                {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                }
+                else
+                {
+                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
+                    {
+                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
+                                w.doAction(World.A_TURN_LEFT);
+                                w.doAction(World.A_MOVE);
+                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
+                                w.doAction(World.A_TURN_RIGHT);
+                                w.doAction(World.A_MOVE);
+
+                            } 
+                    }
+                   else
+                   {
+                       if(w.isValidPosition(cX+1, cY))
+                       {
+                            w.doAction(World.A_MOVE);
+                       }
+                       else
+                       {
+                           w.doAction(World.A_TURN_LEFT);
+                           w.doAction(World.A_TURN_LEFT);
+                           w.doAction(World.A_MOVE);
+                   }
+                       }
+                    
+                }
+                    
+            }
+            
+            
+        
+        
+         
     }
 }
