@@ -108,7 +108,12 @@ public class MyAgent implements Agent {
 
             moveToUnknown(cX, cY);
 
-        } else if (w.hasStench(cX, cY)) {
+        }else if(countKnownSqr==14 && w.hasBreeze(cX, cY))
+        {
+            w.doAction(World.A_TURN_LEFT);
+             w.doAction(World.A_MOVE);
+        }
+        else if (w.hasStench(cX, cY)) {
             if(countKnownSqr==15)
             {
                 if((w.getDirection()==3 && w.isUnknown(cX, cY-1))||(w.getDirection()==0 && w.isUnknown(cX-1, cY))||(w.getDirection()==1 && w.isUnknown(cX, cY+1))||(w.getDirection()==2 && w.isUnknown(cX+1, cY)))
@@ -216,7 +221,371 @@ public class MyAgent implements Agent {
 //    }
 
     public void moveFromBreeze(int cX, int cY, int[][] myWorld, int xDir, int yDir) {
-        if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
+        if((w.isValidPosition(cX+1, cY+1)&& myWorld[cX+1][cY+1]==0)|| (w.isValidPosition(cX-1, cY-1)&& myWorld[cX-1][cY-1]==0)||(w.isValidPosition(cX+1, cY-1)&& myWorld[cX+1][cY-1]==0)||(w.isValidPosition(cX-1, cY+1)&& myWorld[cX-1][cY+1]==0))
+        {
+         if(w.isValidPosition(cX+1, cY+1)&& myWorld[cX+1][cY+1]==0 &&(w.isUnknown(cX, cY+1)||w.isUnknown(cX+1, cY)))
+         {
+             if(w.isUnknown(cX, cY+1))
+             {
+                 if(xDir==0 && yDir==1)
+                 {
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==0 && yDir==-1)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                  else if(xDir==-1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_RIGHT);
+                     w.doAction(World.A_MOVE);
+                 }
+          
+                 
+                 
+             }
+             else if(w.isUnknown(cX+1, cY))
+             {
+                 if(xDir==1 && yDir==0)
+                 {
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==0 && yDir==-1)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==-1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                  else if(xDir==0 && yDir==1)
+                 {
+                     w.doAction(World.A_TURN_RIGHT);
+                     w.doAction(World.A_MOVE);
+                 }
+           
+             }
+              else
+         {
+             w.doAction(World.A_MOVE);
+         }
+         }
+         else if(w.isValidPosition(cX-1, cY+1)&& myWorld[cX-1][cY+1]==0 &&(w.isUnknown(cX, cY+1)|| w.isUnknown(cX-1, cY)))
+         {
+             if(w.isUnknown(cX, cY+1))
+             {
+                 if(xDir==0 && yDir==1)
+                 {
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==0 && yDir==-1)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                  else if(xDir==-1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_RIGHT);
+                     w.doAction(World.A_MOVE);
+                 }
+  
+                 
+             }
+             else if(w.isUnknown(cX-1, cY))
+             {
+                 if(xDir==-1 && yDir==0)
+                 {
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==0 && yDir==1)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                  else if(xDir==0 && yDir==-1)
+                 {
+                     w.doAction(World.A_TURN_RIGHT);
+                     w.doAction(World.A_MOVE);
+                 }
+          
+             }
+              else
+         {
+             w.doAction(World.A_MOVE);
+         }
+         }
+         else if(w.isValidPosition(cX-1, cY-1)&& myWorld[cX-1][cY-1]==0 && (w.isUnknown(cX, cY-1)||w.isUnknown(cX-1, cY)))
+         {
+             if(w.isUnknown(cX, cY-1))
+             {
+                 if(xDir==0 && yDir==-1)
+                 {
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==-1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==0 && yDir==1)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                  else if(xDir==1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_RIGHT);
+                     w.doAction(World.A_MOVE);
+                 }
+                 
+                 
+             }
+             else if(w.isUnknown(cX-1, cY))
+             {
+                 if(xDir==-1 && yDir==0)
+                 {
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==0 && yDir==1)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                  else if(xDir==0 && yDir==-1)
+                 {
+                     w.doAction(World.A_TURN_RIGHT);
+                     w.doAction(World.A_MOVE);
+                 }
+          
+             }
+              else
+         {
+             w.doAction(World.A_MOVE);
+         }
+         }
+         else if(w.isValidPosition(cX+1, cY-1)&& myWorld[cX+1][cY-1]==0 && (w.isUnknown(cX, cY-1)|| w.isUnknown(cX+1, cY)))
+         {
+             if(w.isUnknown(cX, cY-1))
+             {
+                 if(xDir==0 && yDir==-1)
+                 {
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==-1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==0 && yDir==1)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                  else if(xDir==1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_RIGHT);
+                     w.doAction(World.A_MOVE);
+                 }
+    
+                 
+             }
+             else if(w.isUnknown(cX+1, cY))
+             {
+                 if(xDir==1 && yDir==0)
+                 {
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==0 && yDir==-1)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                 else if(xDir==-1 && yDir==0)
+                 {
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_TURN_LEFT);
+                     w.doAction(World.A_MOVE);
+                 }
+                  else if(xDir==0 && yDir==1)
+                 {
+                     w.doAction(World.A_TURN_RIGHT);
+                     w.doAction(World.A_MOVE);
+                 }
+        
+             }
+             
+         }
+         
+         else
+         {
+             w.doAction(World.A_MOVE);
+         }
+         
+        }
+        
+        
+        
+        else if(w.isValidPosition(cX-xDir, cY-yDir)&& myWorld[cX-xDir][cY-yDir]==0)
+        {
+            if(xDir==0 && yDir==1)
+            {
+                if((w.isValidPosition(cX+1, cY-1)&& w.isUnknown(cX+1, cY-1))||(w.isValidPosition(cX-1, cY-1)&& w.isUnknown(cX-1, cY-1)))
+                {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                }
+                else
+                {
+                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
+                    {
+                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
+                                w.doAction(World.A_TURN_LEFT);
+                                w.doAction(World.A_MOVE);
+                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
+                                w.doAction(World.A_TURN_RIGHT);
+                                w.doAction(World.A_MOVE);
+
+                            } 
+                    }
+                   else
+                   {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                   }
+                }
+                    
+            }
+            else  if(xDir==0 && yDir==-1)
+            {
+                if((w.isValidPosition(cX+1, cY+1)&& w.isUnknown(cX+1, cY+1))||(w.isValidPosition(cX-1, cY+1)&& w.isUnknown(cX-1, cY+1)))
+                {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                }
+                else
+                {
+                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
+                    {
+                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
+                                w.doAction(World.A_TURN_LEFT);
+                                w.doAction(World.A_MOVE);
+                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
+                                w.doAction(World.A_TURN_RIGHT);
+                                w.doAction(World.A_MOVE);
+
+                            } 
+                    }
+                   else
+                   {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                   }
+                }
+                    
+            }
+            else  if(xDir==-1 && yDir==0)
+            {
+                if((w.isValidPosition(cX+1, cY+1)&& w.isUnknown(cX+1, cY+1))||(w.isValidPosition(cX+1, cY-1)&& w.isUnknown(cX+1, cY-1)))
+                {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                }
+                else
+                {
+                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
+                    {
+                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
+                                w.doAction(World.A_TURN_LEFT);
+                                w.doAction(World.A_MOVE);
+                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
+                                w.doAction(World.A_TURN_RIGHT);
+                                w.doAction(World.A_MOVE);
+
+                            } 
+                    }
+                   else
+                   {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                   }
+                }
+                    
+            }
+            else  if(xDir==1 && yDir==0)
+            {
+                if((w.isValidPosition(cX-1, cY+1)&& w.isUnknown(cX-1, cY+1))||(w.isValidPosition(cX-1, cY-1)&& w.isUnknown(cX-1, cY-1)))
+                {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                }
+                else
+                {
+                   if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
+                    {
+                        if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
+                                w.doAction(World.A_TURN_LEFT);
+                                w.doAction(World.A_MOVE);
+                            } else if (w.isValidPosition(cX - yDir, cY - xDir) && (w.isUnknown(cX-yDir, cY-xDir))) {
+                                w.doAction(World.A_TURN_RIGHT);
+                                w.doAction(World.A_MOVE);
+
+                            } 
+                    }
+                   else
+                   {
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_TURN_LEFT);
+                    w.doAction(World.A_MOVE);
+                   }
+                }
+                    
+            }
+            
+            
+        }
+        
+        
+        
+        
+        
+        else if((w.isValidPosition(cX + 1, cY + 1) && w.hasStench(cX + 1, cY + 1)) || (w.isValidPosition(cX + 1, cY - 1) && w.hasStench(cX + 1, cY - 1)) || (w.isValidPosition(cX - 1, cY + 1) && w.hasStench(cX - 1, cY + 1)) || (w.isValidPosition(cX - 1, cY - 1) && w.hasStench(cX - 1, cY - 1)))
                     {
                         if (w.isValidPosition(cX + yDir, cY + xDir) && (w.isUnknown(cX+yDir, cY+xDir))) {
                                 w.doAction(World.A_TURN_LEFT);
@@ -448,6 +817,11 @@ public class MyAgent implements Agent {
                             w.doAction(World.A_MOVE);
 
                         } else if (xDir == 1 || xDir == -1) {
+                            w.doAction(World.A_MOVE);
+                        }
+                        else if(yDir==-1)
+                        {
+                            w.doAction(World.A_TURN_LEFT);
                             w.doAction(World.A_MOVE);
                         }
 
